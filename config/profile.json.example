@@ -1,0 +1,66 @@
+{
+  "candidate": {
+    "full_name": "Alex Morgan",
+    "first_name": "Alex",
+    "surname": "MORGAN",
+    "birth_date": "01/01/1990",
+    "birth_place": "Brussels, Belgium",
+    "nationality_code": "BE",
+    "location": "Brussels, Belgium",
+    "phone": "+32 2 123 4567",
+    "email": "alex.morgan.demo@example.com",
+    "linkedin": "linkedin.com/in/alex-morgan-demo",
+    "github": "github.com/alex-morgan-demo",
+    "epso_cast": {
+      "application_number": "1234567",
+      "procedure": "EPSO/CAST/P/17/2017",
+      "profile": "Information and Communication Technologies",
+      "function_group": "FG IV Laureate (valid for FG IV & FG III)"
+    },
+    "canonical_cvs": {
+      "epso_cast": "sample_cv_epso.pdf",
+      "eu_governance": "sample_cv_eu.pdf"
+    }
+  },
+  "languages": {
+    "allowed_languages": ["English", "French", "German"],
+    "prohibited_languages": ["Spanish", "Italian", "Other"],
+    "details": {
+      "English": "Native (C2)",
+      "French": "C1 Proficient",
+      "German": "B1 Intermediate"
+    }
+  },
+  "experience_breakdown": {
+    "total_professional_experience_years": 10,
+    "total_professional_experience_months": 0,
+    "total_text": "10+ years in ICT systems, cloud infrastructure and service delivery",
+    "vendor_governance_and_service_delivery_years": 4,
+    "vendor_governance_and_service_delivery_months": 0,
+    "vendor_governance_text": "approximately 4 years in technical vendor governance and enterprise service operations",
+    "technical_supervision_and_fault_mgmt_years": 3,
+    "technical_supervision_and_fault_mgmt_months": 0,
+    "frontline_technical_support_years": 3,
+    "frontline_technical_support_months": 0,
+    "eu_project_coordination_years": 0,
+    "eu_project_coordination_months": 0
+  },
+  "roles": [
+    {
+      "title": "Senior Cloud Operations Specialist",
+      "dates": "01/2022 - Present",
+      "company": "European Technology Services",
+      "location": "Brussels, Belgium",
+      "duration_months": 36,
+      "category": "Cloud Architecture & Operations"
+    },
+    {
+      "title": "Systems Engineer",
+      "dates": "01/2018 - 12/2021",
+      "company": "Telecom Enterprise",
+      "location": "Brussels, Belgium",
+      "duration_months": 48,
+      "category": "Infrastructure & Systems Operations"
+    }
+  ]
+}

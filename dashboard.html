@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ραντάρ θέσεων EU — τοπικό</title>
+<style>
+:root{
+  --paper:#f7f8fa; --card:#fff; --ink:#141a24; --ink-soft:#5b6575; --rule:#dfe3ea;
+  --eu:#1f4fa8; --eu-soft:#e8eefa; --urgent:#a8341f; --urgent-soft:#fbeae6;
+  --warm:#8a5a10; --warm-soft:#fbf2e0; --ok:#1d6b4f;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:Consolas,"SF Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0f131a; --card:#161c26; --ink:#e7ebf2; --ink-soft:#97a2b4; --rule:#273040;
+    --eu:#7ea6ef; --eu-soft:#1b2740; --urgent:#f09a85; --urgent-soft:#331c17;
+    --warm:#e0b468; --warm-soft:#2e2515; --ok:#6fc49f; color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 56px}
+header.top{position:sticky;top:0;z-index:9;background:var(--card);border-bottom:1px solid var(--rule)}
+.top-in{max-width:900px;margin:0 auto;padding:14px 20px 12px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline}
+h1{font-family:var(--serif);font-size:1.3rem;margin:0;letter-spacing:-.01em}
+.scanned{font-size:.78rem;color:var(--ink-soft);margin-left:auto;font-variant-numeric:tabular-nums}
+.lede{padding-top:20px;max-width:62ch;color:var(--ink-soft);font-size:.92rem}
+.lede strong{color:var(--ink)}
+.stale{margin-top:14px;padding:11px 14px;border-radius:3px;background:var(--urgent-soft);color:var(--urgent);font-size:.86rem;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;margin:22px 0;overflow:hidden}
+.stat{background:var(--card);padding:12px 14px;min-width:0}
+.stat b{display:block;font-family:var(--serif);font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);margin-top:4px}
+.stat.hot b{color:var(--urgent)} .stat.go b{color:var(--ok)}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:26px;font-size:.86rem}
+.ctl label{display:inline-flex;gap:7px;align-items:center;cursor:pointer;background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:6px 13px}
+.ctl input{accent-color:var(--eu);margin:0}
+section{margin-bottom:34px}
+.sec-head{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:6px}
+.sec-head h2{font-family:var(--serif);font-size:1.02rem;margin:0}
+.sec-head .n{font-size:.78rem;color:var(--ink-soft);margin-left:auto;font-variant-numeric:tabular-nums}
+.sec-note{font-size:.84rem;color:var(--ink-soft);padding:10px 0;max-width:62ch}
+section.target .sec-head{border-bottom-color:var(--ok)} section.target h2{color:var(--ok)}
+section.urgent .sec-head{border-bottom-color:var(--urgent)} section.urgent h2{color:var(--urgent)}
+section.greece .sec-head{border-bottom-color:var(--eu)} section.greece h2{color:var(--eu)}
+section.newly .sec-head{border-bottom-color:#00558f} section.newly h2{color:#00558f}
+ul.rows{list-style:none;margin:0;padding:0}
+li.row{display:grid;grid-template-columns:76px 1fr;gap:0 14px;border-bottom:1px solid var(--rule);padding:13px 0}
+.rail{display:flex;flex-direction:column;gap:3px;padding-top:2px}
+.days{font-family:var(--serif);font-size:1.1rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.days.d-hot{color:var(--urgent)} .days.d-warm{color:var(--warm)}
+.date{font-size:.72rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.body{min-width:0}
+.body a.t{font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--eu);font-size:.98rem}
+.body a.t:hover{color:var(--eu)}
+.meta{font-size:.82rem;color:var(--ink-soft);margin-top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;align-items:center}
+.badge{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:2px 7px;border-radius:2px;background:var(--eu-soft);color:var(--eu)}
+.badge.fg3{background:transparent;color:var(--ink-soft);border:1px solid var(--rule)}
+.badge.fg2{background:transparent;color:#00558f;border:1px solid #00558f}
+.badge.fit{background:var(--warm-soft);color:var(--warm)}
+.badge.gr{background:var(--eu);color:#fff}
+.badge.sc-strong{background:var(--ok);color:#fff}
+.badge.sc-mid{background:var(--warm-soft);color:var(--warm)}
+.badge.sc-weak{background:transparent;color:var(--ink-soft);border:1px solid var(--rule)}
+.badge.sub{background:transparent;color:var(--ink-soft);border:1px dashed var(--rule)}
+.badge.new{background:var(--ok);color:#fff}
+.verd{display:inline-flex;align-items:center;gap:6px;font-size:.73rem;font-weight:600;padding:3px 9px;border-radius:2px;border:1px solid transparent}
+.verd::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.verd.go{background:var(--ok);color:#fff} .verd.go::before{background:#fff}
+.verd.cap{background:var(--warm-soft);color:var(--warm);border-color:var(--warm)}
+.verd.own{background:var(--urgent-soft);color:var(--urgent);border-color:var(--urgent)}
+.verd.unk{color:var(--ink-soft);border-color:var(--rule)}
+.pay{font-size:.8rem;margin-top:6px;font-variant-numeric:tabular-nums}
+.pay b{font-weight:600} .pay .cf{color:var(--ink-soft);font-weight:400}
+.gaps{font-size:.8rem;color:var(--ink-soft);margin-top:5px;font-style:italic}
+.ref{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);word-break:break-all}
+.note{font-size:.8rem;color:var(--ink-soft);margin-top:5px}
+footer{border-top:1px solid var(--rule);padding-top:22px;font-size:.85rem;color:var(--ink-soft)}
+footer h3{font-family:var(--serif);font-size:.95rem;color:var(--ink);margin:0 0 8px}
+footer ul{margin:0 0 18px;padding-left:18px} footer li{margin-bottom:5px}
+.empty{border:1px dashed var(--rule);border-radius:3px;padding:18px;color:var(--ink-soft);font-size:.88rem;background:var(--card)}
+@media (max-width:430px){ li.row{grid-template-columns:1fr;gap:6px} .rail{flex-direction:row;align-items:baseline;gap:8px} }
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <h1>Ραντάρ θέσεων EU</h1>
+  <div class="scanned" id="scanned">—</div>
+</div></header>
+
+<div class="wrap">
+  <p class="lede">Τοπικό αντίγραφο, γραμμένο από τον σαρωτή σε αυτόν τον φάκελο. Ανοιχτές θέσεις
+    <strong>συμβασιούχου υπαλλήλου</strong> σε <strong>FG IV</strong> και <strong>FG III</strong>.
+    Η κρίσιμη διάκριση είναι το <strong>άρθρο</strong>: το <strong>3a</strong> μπορεί να γίνει
+    αορίστου, το <strong>3b</strong> κόβεται στα έξι χρόνια όποιος κι αν είναι ο μισθός.</p>
+
+  <div id="stale"></div>
+  <div class="stats" id="stats"></div>
+
+  <div class="ctl">
+    <label><input type="checkbox" id="only3a"> Μόνο 3a</label>
+    <label><input type="checkbox" id="onlyFit"> Μόνο όσες ταιριάζουν</label>
+    <label><input type="checkbox" id="onlyGr"> Μόνο Ελλάδα</label>
+  </div>
+
+  <section class="newly" id="sec-newly">
+    <div class="sec-head"><h2>Νέες Καταχωρήσεις (από την τελευταία σάρωση)</h2><span class="n" id="n-newly"></span></div>
+    <p class="sec-note" id="note-newly">Θέσεις που εντοπίστηκαν για πρώτη φορά στην πιο πρόσφατη σάρωση.</p>
+    <ul class="rows" id="list-newly"></ul>
+    <div id="msg-newly" class="empty" hidden>Δεν εντοπίστηκε καμία νέα θέση στην τελευταία σάρωση. Όλες οι καταχωρήσεις παραμένουν ενεργές από προηγούμενες ημέρες.</div>
+  </section>
+
+  <section class="target" id="sec-target" hidden>
+    <div class="sec-head"><h2>Στόχος — άρθρο 3a</h2><span class="n" id="n-target"></span></div>
+    <p class="sec-note">Μπορούν να εξελιχθούν σε σύμβαση αορίστου χρόνου. Αυτές είναι οι θέσεις
+      για τις οποίες αξίζει να σηκωθεί η οικογένεια — ο βαθμός και ο μισθός έρχονται δεύτεροι.</p>
+    <ul class="rows" id="list-target"></ul>
+  </section>
+
+  <section class="urgent" id="sec-urgent" hidden>
+    <div class="sec-head"><h2>Λήγουν μέσα σε 10 μέρες</h2><span class="n" id="n-urgent"></span></div>
+    <ul class="rows" id="list-urgent"></ul>
+  </section>
+
+  <section class="greece" id="sec-greece" hidden>
+    <div class="sec-head"><h2>Ελλάδα</h2><span class="n" id="n-greece"></span></div>
+    <p class="sec-note">Χωρίς επίδομα αποδημίας και με συντελεστή 87 — οικονομικά ο χειρότερος
+      συνδυασμός, αλλά χωρίς ξερίζωμα.</p>
+    <ul class="rows" id="list-greece"></ul>
+  </section>
+
+  <section id="sec-fg4" hidden>
+    <div class="sec-head"><h2>FG IV</h2><span class="n" id="n-fg4"></span></div>
+    <ul class="rows" id="list-fg4"></ul>
+  </section>
+
+  <section id="sec-fg3" hidden>
+    <div class="sec-head"><h2>FG III</h2><span class="n" id="n-fg3"></span></div>
+    <ul class="rows" id="list-fg3"></ul>
+  </section>
+
+  <section id="sec-fg2" hidden>
+    <div class="sec-head"><h2>FG II (Αποκλειστικά 3a)</h2><span class="n" id="n-fg2"></span></div>
+    <ul class="rows" id="list-fg2"></ul>
+  </section>
+
+  <div id="nodata"></div>
+
+  <footer>
+    <h3>Κάλυψη της τελευταίας σάρωσης</h3>
+    <ul id="coverage"></ul>
+    <h3>Τι σημαίνουν τα σήματα</h3>
+    <ul>
+      <li><span class="verd go">3a</span> μπορεί να γίνει αορίστου — ο στόχος.
+          <span class="verd cap">3b</span> πλαφόν 6 ετών, ποτέ αορίστου.
+          <span class="verd unk">άγνωστο</span> δεν βρέθηκε στην προκήρυξη, έλεγξέ το.</li>
+      <li><strong>Ο βαθμός</strong> υπολογίζεται από 15 χρόνια και 6 μήνες προϋπηρεσίας μετά το
+          πτυχίο: FG IV βαθμός 14, FG III βαθμός 10. Δεν είναι αυτόματος — η υπηρεσία μετράει
+          μόνο όση προϋπηρεσία δέχεται ως σχετική με τη θέση.</li>
+      <li><strong>Οι καθαρές αποδοχές</strong> είναι από την προσομοίωση της Κομισιόν, για
+          έγγαμο με ένα τέκνο, επί τον συντελεστή της πόλης. Η σύγκριση αφαιρεί ενοίκιο και
+          συγκρίνει με τα 2.700 € του σημερινού νοικοκυριού.</li>
+    </ul>
+    <p>Τα δεδομένα είναι στο <code>data/vacancies.js</code>. Αυτή η σελίδα δεν κατεβάζει τίποτα
+      και δεν στέλνει τίποτα — δουλεύει χωρίς δίκτυο.</p>
+  </footer>
+</div>
+
+<script src="data/vacancies.js"></script>
+<script src="data/meta.js"></script>
+<script>
+(function(){
+  var MON=["Ιαν","Φεβ","Μαρ","Απρ","Μαΐ","Ιουν","Ιουλ","Αυγ","Σεπ","Οκτ","Νοε","Δεκ"];
+  var NOWINC=2700;
+  var rows=(window.VACANCIES||[]).slice();
+  var meta=window.SCANMETA||{};
+  var state={only3a:false,onlyFit:false,onlyGr:false};
+  var el=function(id){return document.getElementById(id);};
+
+  function today(){var d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+  function parseIso(s){var p=String(s||"").slice(0,10).split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
+  function daysLeft(iso){var d=parseIso(iso);return d?Math.round((d-today())/86400000):null;}
+  function fmtDate(iso){var p=String(iso||"").slice(0,10).split("-");return p.length===3?(+p[2])+" "+MON[(+p[1])-1]:"";}
+  function daysLabel(n){
+    if(n===null) return "ανοιχτή";
+    if(n<0) return "έληξε"; if(n===0) return "σήμερα"; if(n===1) return "1 μέρα";
+    return n+" μέρες";
+  }
+  function eur(n){return (n==null?"—":Number(n).toLocaleString("el-GR",{maximumFractionDigits:0})+" €");}
+
+  function row(v){
+    var li=document.createElement("li"); li.className="row";
+    var n=daysLeft(v.deadline);
+    var rail=document.createElement("div"); rail.className="rail";
+    var dd=document.createElement("div");
+    dd.className="days"+(n!==null&&n<=3?" d-hot":(n!==null&&n<=10?" d-warm":""));
+    dd.textContent=daysLabel(n);
+    var dt=document.createElement("div"); dt.className="date";
+    dt.textContent=v.deadline?fmtDate(v.deadline)+(v.deadlineTime?" · "+v.deadlineTime:""):(v.deadlineTime||"");
+    rail.appendChild(dd); rail.appendChild(dt);
+
+    var b=document.createElement("div"); b.className="body";
+    var a=document.createElement("a"); a.className="t"; a.href=v.url||"#";
+    a.target="_blank"; a.rel="noopener noreferrer"; a.textContent=v.title||"(χωρίς τίτλο)";
+    b.appendChild(a);
+    var m=document.createElement("div"); m.className="meta";
+    m.textContent=[v.org,v.city].filter(Boolean).join(" · "); b.appendChild(m);
+
+    var tags=document.createElement("div"); tags.className="tags";
+    function tag(cls,txt,title){var s=document.createElement("span");s.className=cls;s.textContent=txt;if(title)s.title=title;tags.appendChild(s);}
+    tag("badge"+(v.fg==="FG III"?" fg3":(v.fg==="FG II"?" fg2":"")),(v.fg||"FG — προς επιβεβαίωση")+(v.grade?" β."+v.grade:""));
+    var VT={go:"3a · μπορεί να γίνει αορίστου",cap:"3b · απόλυτο πλαφόν 6 χρόνια",
+            own:"ιδιαίτερο καθεστώς",unk:"άρθρο άγνωστο — διάβασε την προκήρυξη"};
+    tag("verd "+(v.verdict||"unk"),VT[v.verdict||"unk"],v.articleNote||"");
+    if(v.scoreLabel) tag("badge sc-"+(v.score||"weak"),v.scoreLabel);
+    if(v.submit) tag("badge sub",v.submit==="email"?"έντυπο + email":"πύλη με λογαριασμό");
+    if(v.greece) tag("badge gr","Ελλάδα");
+    if(v.fit) tag("badge fit",v.fitLabel||"ταιριάζει");
+    if(v.firstSeen===meta.lastScan) tag("badge new","νέα");
+    if(v.ref){var r=document.createElement("span");r.className="ref";r.textContent=v.ref;tags.appendChild(r);}
+    b.appendChild(tags);
+
+    if(v.netPay!=null){
+      var pl=document.createElement("div"); pl.className="pay";
+      var diff=v.netPay-(v.rent||2000)-NOWINC;
+      var bb=document.createElement("b"); bb.textContent="~"+eur(v.netPay)+" καθαρά"; pl.appendChild(bb);
+      var cf=document.createElement("span"); cf.className="cf";
+      cf.textContent = v.coef
+        ? " · συντελεστής "+String(v.coef).replace(".",",")+" · μείον ενοίκιο "+eur(v.rent)
+          +" → "+(diff>=0?"+":"")+eur(diff)+" vs σήμερα"
+        : " · συντελεστής πόλης άγνωστος — τιμή υπολογισμένη με 100";
+      pl.appendChild(cf); b.appendChild(pl);
+    }
+    if(v.gaps){var g=document.createElement("div");g.className="gaps";g.textContent="Λείπει: "+v.gaps;b.appendChild(g);}
+    if(v.note){var nt=document.createElement("div");nt.className="note";nt.textContent=v.note;b.appendChild(nt);}
+
+    li.appendChild(rail); li.appendChild(b);
+    return li;
+  }
+
+  function fill(listId,secId,countId,items){
+    var ul=el(listId); ul.textContent="";
+    items.forEach(function(v){ul.appendChild(row(v));});
+    el(countId).textContent=items.length?items.length+(items.length===1?" θέση":" θέσεις"):"καμία";
+    el(secId).hidden=items.length===0;
+  }
+
+  function render(){
+    var all=rows.slice().sort(function(a,b){
+      return String(a.deadline||"9999").localeCompare(String(b.deadline||"9999"));
+    });
+    var live=all.filter(function(v){var n=daysLeft(v.deadline);return n===null||n>=0;});
+    var vis=live.filter(function(v){
+      if(v.fg==="FG II" && v.article!=="3a") return false;
+      if(state.only3a&&v.verdict!=="go") return false;
+      if(state.onlyFit&&!v.fit) return false;
+      if(state.onlyGr&&!v.greece) return false;
+      return true;
+    });
+    var newly=vis.filter(function(v){return v.firstSeen===meta.lastScan;});
+    var target=vis.filter(function(v){return v.verdict==="go";});
+    var urgent=vis.filter(function(v){var n=daysLeft(v.deadline);return n!==null&&n<=10;});
+    var greece=vis.filter(function(v){return v.greece;});
+    var fg4=vis.filter(function(v){return v.fg==="FG IV";});
+    var fg3=vis.filter(function(v){return v.fg==="FG III";});
+    var fg2=vis.filter(function(v){return v.fg==="FG II";});
+    var other=vis.filter(function(v){return v.fg!=="FG IV"&&v.fg!=="FG III"&&v.fg!=="FG II";});
+    var unk=live.filter(function(v){return (v.verdict||"unk")==="unk";}).length;
+
+    el("stats").textContent="";
+    [["Νέες θέσεις",newly.length,newly.length?"go":""],["3a · στόχος",target.length,"go"],["Λήγουν ≤10 μέρες",urgent.length,"hot"],
+     ["FG IV",fg4.length,""],["FG III",fg3.length,""],["FG II (3a)",fg2.length,""],["Άρθρο άγνωστο",unk,""]]
+      .forEach(function(s){
+        var d=document.createElement("div"); d.className="stat"+(s[2]?" "+s[2]:"");
+        var b=document.createElement("b"); b.textContent=s[1];
+        var sp=document.createElement("span"); sp.textContent=s[0];
+        d.appendChild(b); d.appendChild(sp); el("stats").appendChild(d);
+      });
+
+    // Fill newly section
+    var ulNew=el("list-newly"); ulNew.textContent="";
+    var msgNew=el("msg-newly");
+    if(newly.length){
+      newly.forEach(function(v){ulNew.appendChild(row(v));});
+      el("n-newly").textContent=newly.length+(newly.length===1?" νέα θέση":" νέες θέσεις");
+      msgNew.hidden=true;
+      ulNew.hidden=false;
+    } else {
+      el("n-newly").textContent="καμία νέα";
+      msgNew.textContent="Δεν εντοπίστηκε καμία νέα θέση στην τελευταία σάρωση ("+(meta.lastScan||"σήμερα")+"). Όλες οι καταχωρήσεις προϋπήρχαν και παραμένουν ενεργές.";
+      msgNew.hidden=false;
+      ulNew.hidden=true;
+    }
+
+    fill("list-target","sec-target","n-target",target);
+    fill("list-urgent","sec-urgent","n-urgent",urgent);
+    fill("list-greece","sec-greece","n-greece",greece);
+    fill("list-fg4","sec-fg4","n-fg4",fg4.concat(other));
+    fill("list-fg3","sec-fg3","n-fg3",fg3);
+    fill("list-fg2","sec-fg2","n-fg2",fg2);
+
+    el("nodata").textContent="";
+    if(!rows.length){
+      var e=document.createElement("div"); e.className="empty";
+      // Δύο εντελώς διαφορετικές αιτίες, και η λάθος διάγνωση κοστίζει ώρα:
+      // αν λείπει η ίδια η μεταβλητή, τα αρχεία δεν φορτώθηκαν· αν είναι άδεια, δεν έτρεξε σάρωση.
+      e.textContent = (typeof window.VACANCIES==="undefined")
+        ? "Τα αρχεία δεδομένων δεν φορτώθηκαν. Έλεγξε ότι υπάρχουν τα data/vacancies.js και data/meta.js δίπλα σε αυτή τη σελίδα, στον ίδιο φάκελο. Αν υπάρχουν και πάλι δεν φαίνονται, άνοιξε τη σελίδα μέσα από το Antigravity αντί με διπλό κλικ."
+        : "Δεν υπάρχει καμία ενεργή θέση. Τρέξε τον σαρωτή: άνοιξε τον φάκελο στο Antigravity και κόλλησε το PROMPT.txt.";
+      el("nodata").appendChild(e);
+    }
+  }
+
+  // Κεφαλίδα και παλαιότητα
+  var when=meta.lastScan?fmtDate(meta.lastScan)+" "+String(meta.lastScan).slice(0,4):"";
+  el("scanned").textContent = when
+    ? "Σάρωση: "+when+(meta.scanner?" · "+meta.scanner:"")
+      +(meta.portalPages?" · σελίδες "+meta.portalPages:"")+(meta.sources?" · πηγές "+meta.sources:"")
+    : "Καμία σάρωση ακόμη";
+  var age=meta.lastScan?Math.round((today()-parseIso(meta.lastScan))/86400000):null;
+  if(age!==null&&age>7){
+    var w=document.createElement("div"); w.className="stale";
+    w.textContent="Η τελευταία σάρωση έγινε πριν από "+age+" μέρες. Οι προθεσμίες αλλάζουν γρήγορα — τρέξε τον σαρωτή ξανά.";
+    el("stale").appendChild(w);
+  }
+
+  var cov=el("coverage");
+  function li(txt){var x=document.createElement("li");x.textContent=txt;cov.appendChild(x);}
+  if(meta.portalPages) li("Σελίδες πύλης: "+meta.portalPages+" · Πηγές: "+(meta.sources||"—"));
+  (meta.notChecked||[]).forEach(li);
+  if(!cov.children.length) li("Δεν υπάρχουν στοιχεία κάλυψης — ο σαρωτής δεν έχει τρέξει ακόμη.");
+
+  el("only3a").addEventListener("change",function(e){state.only3a=e.target.checked;render();});
+  el("onlyFit").addEventListener("change",function(e){state.onlyFit=e.target.checked;render();});
+  el("onlyGr").addEventListener("change",function(e){state.onlyGr=e.target.checked;render();});
+
+  render();
+})();
+</script>
+</body>
+</html>
