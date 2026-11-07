@@ -76,7 +76,7 @@ flowchart TD
 Clone the repository and set up a virtual environment:
 
 ```bash
-git clone https://github.com/your-username/epso-opportunity-scanner.git
+git clone https://github.com/stergios-ziliaskopoulos/epso-opportunity-scanner.git
 cd epso-opportunity-scanner
 
 python -m venv venv
